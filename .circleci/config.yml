@@ -40,9 +40,9 @@ jobs:
           name: install kong-pongo for testing
           command: |
             ls -al /
+            git clone --single-branch https://github.com/Kong/kong-pongo kong_pongo
             pwd
             ls -alR `pwd`
-            git clone --single-branch https://github.com/Kong/kong-pongo kong_pongo
             KONG_VERSION=1.4.x ./kong-pongo/pongo.sh run --no-cassandra --no-postgres ./spec
 
 workflows:
