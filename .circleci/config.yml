@@ -42,7 +42,7 @@ jobs:
             git clone --single-branch https://github.com/Kong/kong-pongo
             kong-pongo/pongo.sh up
             kong-pongo/pongo.sh build
-            KONG_TEST_PLUGIN_PATH=`pwd` KONG_VERSION= ${KONG_VERSION} kong-pongo/pongo.sh run -v -o gtest --no-cassandra --no-postgres ~/repo/spec
+            KONG_TEST_PLUGIN_PATH=`pwd` KONG_VERSION=${KONG_VERSION} kong-pongo/pongo.sh run -v -o gtest --no-cassandra --no-postgres ~/repo/spec
 
 workflows:
   version: 2
