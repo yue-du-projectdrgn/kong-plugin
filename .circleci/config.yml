@@ -8,7 +8,6 @@ jobs:
     environment:
       LUA_VERSION: lua5.3
       KONG_VERSION: 1.4.x
-      KONG_TEST_PLUGIN_PATH: ~/repo
     docker:
       - image: cimg/base:2020.01
     steps:
@@ -43,7 +42,7 @@ jobs:
             git clone --single-branch https://github.com/Kong/kong-pongo
             kong-pongo/pongo.sh up
             kong-pongo/pongo.sh build
-            kong-pongo/pongo.sh run -v -o gtest --no-cassandra --no-postgres ~/repo/spec
+            KONG_TEST_PLUGIN_PATH=`pwd` KONG_VERSION= ${KONG_VERSION} kong-pongo/pongo.sh run -v -o gtest --no-cassandra --no-postgres ~/repo/spec
 
 workflows:
   version: 2
