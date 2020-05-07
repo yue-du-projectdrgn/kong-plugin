@@ -1,0 +1,54 @@
+version: 2.1
+executorType: machine
+orbs:
+  artifactory: circleci/artifactory@1.0.0
+jobs:
+  test_kong_plugin:
+    working_directory: ~/repo
+    environment:
+      LUA_VERSION: lua5.3
+      KONG_VERSION: 1.4.x
+    docker:
+      - image: cimg/base:2020.01
+    steps:
+      - checkout
+      #      - run:
+      #          name: Kong plugin lua instal
+      #          command: |
+      #            sudo apt-get update &&
+      #            sudo apt-get install --assume-yes --quiet --no-install-suggests \
+      #            --no-install-recommends build-essential \
+      #            "${LUA_VERSION}" "lib${LUA_VERSION}" luarocks
+      ##            sudo apt-get install --no-install-recommends openresty
+      ##            sudo apt-get install nginx-plus-module-lua
+      #      - run:
+      #          name: Luarocks version
+      #          command: |
+      #            luarocks --version
+      #      - run:
+      #          name: Install luarocks packages
+      #          command: |
+      #            sudo luarocks install --server=https://luarocks.org/dev ltn12
+      #            sudo luarocks install lua-cjson 2.1.0-1
+      #            sudo luarocks install busted
+      #            sudo luarocks install kong 1.4.2-0
+      #      - run:
+      #          name: Run Test
+      #          command: |
+      #            find `pwd` -name kong
+      #            ls -lan `pwd`
+      #            busted -v ./spec
+      - run:
+          name: install kong-pongo for testing
+          command: |
+            git clone --single-branch https://github.com/Kong/kong-pongo ../kong-pongo
+            "../kong-pongo/pongo.sh up"
+            "../kong-pongo/pongo.sh build"
+            ../kong-pongo/pongo.sh run --no-cassandra --no-postgres ./spec
+
+workflows:
+  version: 2
+  test_and_push:
+    jobs:
+      - test_kong_plugin
+
