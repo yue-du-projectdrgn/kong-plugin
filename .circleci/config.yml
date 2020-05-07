@@ -12,32 +12,30 @@ jobs:
       - image: cimg/base:2020.01
     steps:
       - checkout
-            - run:
-                name: Kong plugin lua instal
-                command: |
-                  sudo apt-get update &&
-                  sudo apt-get install --assume-yes --quiet --no-install-suggests \
-                  --no-install-recommends build-essential \
-                  "${LUA_VERSION}" "lib${LUA_VERSION}" luarocks
-      #            sudo apt-get install --no-install-recommends openresty
-      #            sudo apt-get install nginx-plus-module-lua
-            - run:
-                name: Luarocks version
-                command: |
-                  luarocks --version
-            - run:
-                name: Install luarocks packages
-                command: |
-                  sudo luarocks install --server=https://luarocks.org/dev ltn12
-                  sudo luarocks install lua-cjson 2.1.0-1
-                  sudo luarocks install busted
-                  sudo luarocks install kong 1.4.2-0
-            - run:
-                name: Run Test
-                command: |
-                  find `pwd` -name kong
-                  ls -lan `pwd`
-                  busted -v ./spec
+      - run:
+          name: Kong plugin lua instal
+          command: |
+            sudo apt-get update &&
+            sudo apt-get install --assume-yes --quiet --no-install-suggests \
+            --no-install-recommends build-essential \
+            "${LUA_VERSION}" "lib${LUA_VERSION}" luarocks
+      - run:
+          name: Luarocks version
+          command: |
+            luarocks --version
+      - run:
+          name: Install luarocks packages
+          command: |
+            sudo luarocks install --server=https://luarocks.org/dev ltn12
+            sudo luarocks install lua-cjson 2.1.0-1
+            sudo luarocks install busted
+            sudo luarocks install kong 1.4.2-0
+      - run:
+          name: Run Test
+          command: |
+            find `pwd` -name kong
+            ls -lan `pwd`
+            busted -v ./spec
 #      - run:
 #          name: install kong-pongo for testing
 #          command: |
