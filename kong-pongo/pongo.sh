@@ -659,6 +659,8 @@ function main {
       busted_files+=( "/kong-plugin/spec" )
     fi
 
+    echo ${busted_files}
+    echo ${busted_params}
     compose run --rm \
       -e KONG_LICENSE_DATA \
       -e KONG_TEST_PLUGIN_PATH \
