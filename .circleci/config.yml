@@ -37,12 +37,9 @@ jobs:
 #            ls -lan `pwd`
 #            busted -v ./spec
       - run:
-          name: install kong-pongo for testing
+          name: test
           command: |
-            git clone --single-branch https://github.com/Kong/kong-pongo
-            kong-pongo/pongo.sh up
-            kong-pongo/pongo.sh build
-            KONG_TEST_PLUGIN_PATH=`pwd` KONG_VERSION=${KONG_VERSION} kong-pongo/pongo.sh run -v -o gtest --no-cassandra --no-postgres ~/repo/spec
+            KONG_VERSION=${KONG_VERSION} kong-pongo/pongo.sh run --no-cassandra --no-postgres -v spec
 
 workflows:
   version: 2
