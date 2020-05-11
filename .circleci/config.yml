@@ -36,12 +36,12 @@ jobs:
 #            find `pwd` -name kong
 #            ls -lan `pwd`
 #            busted -v ./spec
-#      - run:
-#          name: test
-#          command: |
-#            KONG_TEST_PLUGIN_PATH=$(realpath .)
-#            echo ${KONG_TEST_PLUGIN_PATH}
-#            KONG_VERSION=${KONG_VERSION} kong-pongo/pongo.sh run --no-cassandra --no-postgres -v spec
+      - run:
+          name: test
+          command: |
+            KONG_TEST_PLUGIN_PATH=$(realpath .)
+            echo ${KONG_TEST_PLUGIN_PATH}
+            KONG_VERSION=${KONG_VERSION} kong-pongo/pongo.sh run --no-cassandra --no-postgres -v ./spec
 
 workflows:
   version: 2
