@@ -13,35 +13,36 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-#      - run:
-#          name: Kong plugin lua instal
-#          command: |
-#            sudo apt-get update &&
-#            sudo apt-get install --assume-yes --quiet --no-install-suggests \
-#            --no-install-recommends build-essential \
-#            "${LUA_VERSION}" "lib${LUA_VERSION}" luarocks
-#      - run:
-#          name: Luarocks version
-#          command: |
-#            luarocks --version
-#      - run:
-#          name: Install luarocks packages
-#          command: |
-#            sudo luarocks install --server=https://luarocks.org/dev ltn12
-#            sudo luarocks install lua-cjson 2.1.0-1
-#            sudo luarocks install busted
-#      - run:
-#          name: Run Test
-#          command: |
-#            find `pwd` -name kong
-#            ls -lan `pwd`
-#            busted -v ./spec
       - run:
-          name: test
+          name: Kong plugin lua instal
           command: |
-            KONG_TEST_PLUGIN_PATH=$(realpath .)
-            echo ${KONG_TEST_PLUGIN_PATH}
-            KONG_VERSION=${KONG_VERSION} kong-pongo/pongo.sh run --no-cassandra --no-postgres -v spec
+            sudo apt-get update &&
+            sudo apt-get install --assume-yes --quiet --no-install-suggests \
+            --no-install-recommends build-essential \
+            "${LUA_VERSION}" "lib${LUA_VERSION}" luarocks
+      - run:
+          name: Luarocks version
+          command: |
+            luarocks --version
+      - run:
+          name: Install luarocks packages
+          command: |
+            sudo luarocks install --server=https://luarocks.org/dev ltn12
+            sudo luarocks install lua-cjson 2.1.0-1
+            sudo luarocks install busted
+            sudo luarocks install lua-resty-core
+      - run:
+          name: Run Test
+          command: |
+            find `pwd` -name kong
+            ls -lan `pwd`
+            busted -v ./spec
+#      - run:
+#          name: test
+#          command: |
+#            KONG_TEST_PLUGIN_PATH=$(realpath .)
+#            echo ${KONG_TEST_PLUGIN_PATH}
+#            KONG_VERSION=${KONG_VERSION} kong-pongo/pongo.sh run --no-cassandra --no-postgres -v spec
 
 workflows:
   version: 2
