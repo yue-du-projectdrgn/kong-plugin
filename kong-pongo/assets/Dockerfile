@@ -15,6 +15,7 @@ COPY assets/test_plugin_entrypoint.sh /kong/bin/test_plugin_entrypoint.sh
 # add packer script
 COPY assets/pongo_pack /kong/bin/pongo_pack
 
+COPY spec /kong-plugin/spec
 USER root
 # httpie and jq are genric utilities usable from the shell action.
 # LuaRocks needs (un)zip to (un)pack rocks, and dev essentials to build.
