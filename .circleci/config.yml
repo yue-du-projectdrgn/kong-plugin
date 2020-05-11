@@ -4,7 +4,7 @@ orbs:
   artifactory: circleci/artifactory@1.0.0
 jobs:
   test_kong_plugin:
-#    working_directory: ~/repo
+    working_directory: ~/repo
     environment:
       LUA_VERSION: lua5.3
       KONG_VERSION: 1.4.x
@@ -36,12 +36,12 @@ jobs:
 #            find `pwd` -name kong
 #            ls -lan `pwd`
 #            busted -v ./spec
-      - run:
-          name: test
-          command: |
-            KONG_TEST_PLUGIN_PATH=$(realpath .)
-            echo ${KONG_TEST_PLUGIN_PATH}
-            KONG_VERSION=${KONG_VERSION} kong-pongo/pongo.sh run --no-cassandra --no-postgres -v spec
+#      - run:
+#          name: test
+#          command: |
+#            KONG_TEST_PLUGIN_PATH=$(realpath .)
+#            echo ${KONG_TEST_PLUGIN_PATH}
+#            KONG_VERSION=${KONG_VERSION} kong-pongo/pongo.sh run --no-cassandra --no-postgres -v spec
 
 workflows:
   version: 2
