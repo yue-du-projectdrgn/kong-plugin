@@ -20,6 +20,7 @@ jobs:
             sudo apt-get install --assume-yes --quiet --no-install-suggests \
             --no-install-recommends build-essential \
             "${LUA_VERSION}" "lib${LUA_VERSION}" luarocks
+            sudo apt-get install kong
       - run:
           name: Luarocks version
           command: |
